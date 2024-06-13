@@ -1,0 +1,7 @@
+@import './variables';
+
+@mixin pixel ($bgColor: #fff) {
+  height: $pixel;
+  width: $pixel;
+  background: $bgColor;
+}
