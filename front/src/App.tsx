@@ -1,3 +1,5 @@
+import "primereact/resources/themes/lara-dark-cyan/theme.css";
+
 import "./App.css";
 import { Home } from "./app/Home";
 
