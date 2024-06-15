@@ -1,8 +1,4 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// https://dbdiagram.io/d/Khipo-666dfbe9a179551be6f959e7
 
 generator client {
   provider = "prisma-client-js"
@@ -13,64 +9,68 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Local {
-  id           Int       @id @default(autoincrement())
-  nome         String
-  apelido      String?
-  tipo         Tipo      @default(FUTEBOL)
-  cnpj         String
-  cidade       String
-  uf           UF
-  cep          String
-  endereco     String
-  complemento  String?
-  email        String
-  telefone     String?
-  entradas     Entrada[]
-  catracas     Catraca[]
-  criadoEm     DateTime  @default(now())
-  atualizadoEm DateTime  @updatedAt
-  Evento       Evento[]
+model places {
+  id         Int         @id @default(autoincrement())
+  name       String
+  nickname   String?
+  type       place_types @default(STADIUM)
+  cnpj       String
+  city       String
+  uf         uf
+  cep        String
+  address    String
+  complement String?
+  email      String
+  phone      String?
+  entrances  entrances?
+  turnstiles turnstiles?
+  events     events?
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
 }
 
-model Entrada {
-  id           Int      @id @default(autoincrement())
-  nome         String
-  local        Local    @relation(fields: [localId], references: [id])
-  localId      Int
-  criadoEm     DateTime @default(now())
-  atualizadoEm DateTime @updatedAt
+model entrances {
+  id         Int      @id @default(autoincrement())
+  name       String
+  place      places   @relation(fields: [place_id], references: [id])
+  place_id   Int      @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
-model Catraca {
-  id           Int      @id @default(autoincrement())
-  nome         String
-  local        Local    @relation(fields: [localId], references: [id])
-  localId      Int
-  criadoEm     DateTime @default(now())
-  atualizadoEm DateTime @updatedAt
+model turnstiles {
+  id         Int      @id @default(autoincrement())
+  name       String
+  place      places   @relation(fields: [place_id], references: [id])
+  place_id   Int      @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
-model Evento {
-  id           Int      @id @default(autoincrement())
-  nome         String
-  tipo         Tipo     @default(FUTEBOL)
-  dataEvento   DateTime
-  horario      DateTime
-  email        String
-  telefone     String?
-  local        Local    @relation(fields: [localId], references: [id])
-  localId      Int
-  criadoEm     DateTime @default(now())
-  atualizadoEm DateTime @updatedAt
+model events {
+  id         Int         @id @default(autoincrement())
+  name       String
+  type       event_types @default(SOCCER)
+  date_event DateTime
+  email      String
+  phone      String?
+  place      places      @relation(fields: [place_id], references: [id])
+  place_id   Int         @unique
+  created_at DateTime    @default(now())
+  updated_at DateTime    @updatedAt
 }
 
-enum Tipo {
+enum event_types {
   SHOW
-  FUTEBOL
+  SOCCER
 }
 
-enum UF {
+enum place_types {
+  STADIUM
+  THEATER
+}
+
+enum uf {
   AC
   AL
   AP
