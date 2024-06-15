@@ -1,0 +1,101 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Local {
+  id           Int       @id @default(autoincrement())
+  nome         String
+  apelido      String?
+  tipo         Tipo      @default(FUTEBOL)
+  cnpj         String
+  cidade       String
+  uf           UF
+  cep          String
+  endereco     String
+  complemento  String?
+  email        String
+  telefone     String?
+  entradas     Entrada[]
+  catracas     Catraca[]
+  criadoEm     DateTime  @default(now())
+  atualizadoEm DateTime  @updatedAt
+  Evento       Evento[]
+}
+
+model Entrada {
+  id           Int      @id @default(autoincrement())
+  nome         String
+  local        Local    @relation(fields: [localId], references: [id])
+  localId      Int
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+}
+
+model Catraca {
+  id           Int      @id @default(autoincrement())
+  nome         String
+  local        Local    @relation(fields: [localId], references: [id])
+  localId      Int
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+}
+
+model Evento {
+  id           Int      @id @default(autoincrement())
+  nome         String
+  tipo         Tipo     @default(FUTEBOL)
+  dataEvento   DateTime
+  horario      DateTime
+  email        String
+  telefone     String?
+  local        Local    @relation(fields: [localId], references: [id])
+  localId      Int
+  criadoEm     DateTime @default(now())
+  atualizadoEm DateTime @updatedAt
+}
+
+enum Tipo {
+  SHOW
+  FUTEBOL
+}
+
+enum UF {
+  AC
+  AL
+  AP
+  AM
+  BA
+  CE
+  DF
+  ES
+  GO
+  MA
+  MT
+  MS
+  MG
+  PA
+  PB
+  PR
+  PE
+  PI
+  RJ
+  RN
+  RS
+  RO
+  RR
+  SC
+  SP
+  SE
+  TO
+}
