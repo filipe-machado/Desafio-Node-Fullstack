@@ -1,0 +1,16 @@
+.p-menubar {
+  background: transparent;
+  border: none;  
+  margin: 0 6.35vw;
+  padding-top: 20px;
+
+  ul {
+    margin: 0 90px;
+  }
+
+  &-root-list>.p-menuitem>.p-menuitem-content {
+    .p-menuitem-link {
+      font-size: 14pt;
+    }
+  }
+}
