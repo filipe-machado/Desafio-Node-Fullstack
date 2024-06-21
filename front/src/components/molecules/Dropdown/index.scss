@@ -1,0 +1,21 @@
+.p-dropdown {
+  background: transparent;
+  border: none;
+  &:not(.p-disabled) {
+    &:hover {
+      border-color: transparent;
+    }
+    &.p-focus {
+      box-shadow: none;
+    }
+  }
+  &-label {
+    &.p-placeholder {
+      color: rgba(255, 255, 255, 0.87);
+    }
+  }
+}
+
+.p-inputtext {
+  padding: 1rem .4rem;
+}
