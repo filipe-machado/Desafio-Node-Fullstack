@@ -1,14 +1,18 @@
-import "primereact/resources/themes/lara-dark-cyan/theme.css";
+import { PrimeReactProvider } from "primereact/api";
+import { RouterProvider } from "react-router-dom";
+import router from "./routes";
+import "primeicons/primeicons.css";
+import "primeflex/primeflex.css";
 
-import "./App.css";
-import { Home } from "./app/Home";
-
-// https://www.youtube.com/watch?v=Lrj2RhSZ1L8
 function App() {
+  const value = {
+    ripple: true,
+  };
+
   return (
-    <>
-      <Home />
-    </>
+    <PrimeReactProvider value={value}>
+      <RouterProvider router={router} />
+    </PrimeReactProvider>
   );
 }
 
