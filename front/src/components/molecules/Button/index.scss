@@ -1,0 +1,7 @@
+.p-button.p-button-text:not(:disabled) {
+  &:hover, &:focus {
+      background: transparent;
+      color: #9FA8DA;
+      border-color: transparent;
+    }
+}
